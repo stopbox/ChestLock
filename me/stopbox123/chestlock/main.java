@@ -11,8 +11,9 @@ public class main extends JavaPlugin {
 	
 	public void onEnable() {
 		PluginManager pm = Bukkit.getPluginManager();
-		pm.registerEvents(new ChestListener(), this);
-        getCommand("lock").setExecutor(new LockChest());
+		LockChest lockchest = new LockChest();
+                pm.registerEvents(new ChestListener(lockchest), this);
+        	getCommand("lock").setExecutor(lockchest);
 	}
 
 }
