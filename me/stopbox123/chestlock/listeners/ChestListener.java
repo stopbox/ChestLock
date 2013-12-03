@@ -11,17 +11,30 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class ChestListener implements Listener {
 	
-	LockChest lockedcheck = new LockChest();
+	LockChest lockedcheck;
+	
+	public ChestListener(LockChest lockedcheck)
+	{
+		this.lockedcheck = lockedcheck;
+	}
+	
 	@EventHandler
 	public void isLocked(PlayerInteractEvent e) {
-		if (e.getClickedBlock().getType() == Material.CHEST) {
-            if (lockedcheck.locked.containsKey(e.getClickedBlock().getLocation()) && lockedcheck.locked.containsKey(e.getPlayer().getName())) {
-                    
-            } else {
-                    e.setCancelled(true);
-                    e.getPlayer().sendMessage(ChatColor.GRAY + "[" + ChatColor.GOLD + "ChestLock" + ChatColor.GRAY + "] " + ChatColor.AQUA + "You may not open that chest owned by " + lockedcheck.locked.get(e.getClickedBlock().getLocation()));
-            }
+		if(e.getAction() != Action.RIGHT_CLICK_BLOCK)
+		{
+			// There is no Block that we are interacting with
+			return;
+		}
+		if (e.getClickedBlock().getType() == Material.CHEST) 
+		{
+			String owner = lockedcheck.locked.get(e.getClickedBlock().getLocation());
+			// Check if the block does not have an owner
+			// or if the interacting player isn't the owner
+	            	if (owner == null || !owner.equals(e.getPlayer().getName()))
+	            	{
+	                	e.setCancelled(true);
+                		 e.getPlayer().sendMessage(ChatColor.GRAY + "[" + ChatColor.GOLD + "ChestLock" + ChatColor.GRAY + "] " + ChatColor.AQUA + "You may not open that chest owned by " + lockedcheck.locked.get(e.getClickedBlock().getLocation()));   
+	            	}
 		}
 	}
-
 }
