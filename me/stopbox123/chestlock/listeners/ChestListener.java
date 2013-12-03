@@ -15,12 +15,12 @@ public class ChestListener implements Listener {
 	@EventHandler
 	public void isLocked(PlayerInteractEvent e) {
 		if (e.getClickedBlock().getType() == Material.CHEST) {
-                if (lockedcheck.locked.containsKey(e.getPlayer())) {
-                	
-                } else {
-                	e.setCancelled(true);
-                	e.getPlayer().sendMessage(ChatColor.GRAY + "[" + ChatColor.GOLD + "ChestLock" + ChatColor.GRAY + "] " + ChatColor.AQUA + "You may not open that chest owned by " + lockedcheck.locked.get(e.getClickedBlock().getLocation()));
-                }
+            if (lockedcheck.locked.containsKey(e.getClickedBlock().getLocation()) && lockedcheck.locked.containsKey(e.getPlayer().getName())) {
+                    
+            } else {
+                    e.setCancelled(true);
+                    e.getPlayer().sendMessage(ChatColor.GRAY + "[" + ChatColor.GOLD + "ChestLock" + ChatColor.GRAY + "] " + ChatColor.AQUA + "You may not open that chest owned by " + lockedcheck.locked.get(e.getClickedBlock().getLocation()));
+            }
 		}
 	}
 

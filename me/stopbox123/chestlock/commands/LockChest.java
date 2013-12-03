@@ -29,9 +29,11 @@ public class LockChest implements CommandExecutor {
 				if (locked.containsKey(b.getLocation()) == true) {
 					p.sendMessage(ChatColor.GRAY + "[" + ChatColor.GOLD + "ChestLock" + ChatColor.GRAY + "] " + ChatColor.AQUA + "That chest is locked all ready by " + locked.get(b.getLocation()));
 				} else {
+					locked.put(b.getLocation(), p.getName().toString());
 					p.sendMessage(ChatColor.GRAY + "[" + ChatColor.GOLD + "ChestLock" + ChatColor.GRAY + "] " + ChatColor.AQUA + "That Chest is now locked!");
+					System.out.println(b.getLocation());
+					System.out.println(locked.keySet());
 	
-				locked.put(b.getLocation(), "Lol");
 				}
 				}
 			}
